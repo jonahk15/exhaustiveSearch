@@ -1,0 +1,26 @@
+CC = g++
+DEBUG = -g
+CFLAGS = -Wall -c -std=c++14 -pedantic-errors $(DEBUG)
+LFLAGS = -Wall $(DEBUG)
+
+compile: exSearch.out
+
+exSearch.out: main.o exSearch.o
+	$(CC) $(LFLAGS) -o exSearch.out main.o exSearch.o
+
+main.o: main.cpp exSearch.h
+	$(CC) $(CFLAGS) main.cpp
+
+exSearch.o: exSearch.cpp exSearch.h
+	$(CC) $(CFLAGS) exSearch.cpp
+
+run: exSearch.out
+	./exSearch.out -a -v 5 2 3 1 9 -e 97
+	./exSearch.out -v 5 2 3 1 9 -e 97 -a
+	./exSearch.out -e 97 -v 5 2 3 1 9 -b
+	./exSearch.out -v 5 2 3 1 9 -b -e 97
+
+clean:
+	rm exSearch.out
+	rm *.o
+
